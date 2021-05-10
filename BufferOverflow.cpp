@@ -111,7 +111,9 @@ void demoDataTypeOverflow(int totalItemsCount, some_structure* pItem, int itemPo
 	printf("Bytes to allocation: %d\n", bytesToAllocation);
 	data_copy = (some_structure*)malloc(bytesToAllocation);
 	if (itemPosition >= 0 && itemPosition < totalItemsCount) {
-		memcpy(&(data_copy[itemPosition]), pItem, sizeof(some_structure));
+        if(sizeof(*some_structure) <= sizeof(data_copy[itemPosition])){
+            memcpy(&(data_copy[itemPosition]), pItem, sizeof(some_structure));
+        }
 	}
 	else {
 		printf("Out of bound assignment");
